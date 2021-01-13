@@ -1,3 +1,4 @@
+//App.vue is the container that we embed all Vue components.
 <template>
   <div id="app">
     <b-navbar type="dark" variant="dark">

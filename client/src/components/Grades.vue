@@ -1,9 +1,13 @@
 <template>
   <div class="App">
+
     <div class="flex-container">
       <div class="flex-child alert">
         <h4><span style="font-size: 1em; color: Salmon;"><i class="fa fa-bell"></i> Thank you for ensuring that you are uploading the correct file before hitting submit! 🙌🏻</span></h4>
       </div>
+
+      <upload-files></upload-files>
+
       <div class="flex-child upload">
         <div style="background-color:#e6fffa; padding:22px; border-radius:11px">
           <button type="button" class="btn btn-info btn-md float-right" @click="reloadPage"><i class="fa fa-refresh"></i></button>
@@ -56,9 +60,12 @@
 
 <script>
 import axios from "axios";
-
+import UploadFiles from "./UploadFiles";
 export default {
   name: "App",
+  components: {
+    UploadFiles
+  },
   data() {
     return {
       options: {

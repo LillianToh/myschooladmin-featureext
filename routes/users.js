@@ -142,6 +142,16 @@ router.get("/myschooladmin/averagesubjectgrades", (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
+//GET GRADES
+// router.get("/myschooladmin/grades", (req, res) => {
+//   // Send back the full list of full time students
+//   db("SELECT * FROM students WHERE class_grade != 'EC' ORDER BY student_given_name;")
+//     .then(results => {
+//       res.send(results.data);
+//     })
+//     .catch(err => res.status(500).send(err));
+// });
+
 module.exports = router;
 
 // TRUNCATE TABLE grades; 
