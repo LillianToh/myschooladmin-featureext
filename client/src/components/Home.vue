@@ -42,10 +42,12 @@
 </v-app>
 </template>
 <script>
+import axios from "axios";
 export default {
     name: "Home",
     data() {
         return {
+            teachers: [],
             team: [
                 { name: 'Maria', expertise: 'Vue', avatar: '/avatar-1.png'},
                 { name: 'Eduardo', expertise: 'Technology', avatar: '/avatar-2.png'},
@@ -54,6 +56,22 @@ export default {
                 { name: 'Mike', expertise: 'Bootstrap', avatar: '/avatar-5.png'},
                 { name: 'Adam', expertise: 'React', avatar: '/avatar-6.png'}
             ]
+        }
+    },
+
+    created() {
+        this.getTeachers()
+    },
+
+    methods: {
+        async getTeachers() {
+            try {
+                const response = await axios.get("http://localhost:5000/users/myschooladmin/teachers");
+                this.teachers = response.data;
+                console.log(this.teachers);
+            } catch(err) {
+                console.log(err);
+            }
         }
     }
 };

@@ -4,6 +4,7 @@
     <b-navbar type="dark" variant="dark">
       <router-link to="/" class="navbar-brand">
         mySchoolAdmin( 😉 )
+        <!-- <router-link :to="{ name: 'Melissa', params: { userId: 123 }}">User</router-link> -->
       </router-link>
       <b-navbar-nav id="isActive">  
         <b-nav-item>
