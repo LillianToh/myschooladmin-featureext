@@ -7,6 +7,7 @@
     "start": "nodemon ./bin/www"
   },
   "dependencies": {
+    "@mdi/font": "^3.6.95",
     "app-module-path": "^2.2.0",
     "axios": "^0.21.1",
     "bootstrap-vue": "^2.17.3",
@@ -22,8 +23,10 @@
     "mysql": "^2.18.1",
     "nodemon": "^2.0.6",
     "read-excel-file": "^5.0.0",
+    "roboto-fontface": "*",
     "vue": "^2.5.18",
     "vue-avatar": "^2.3.3",
+    "vuetify": "^2.4.2",
     "webpack": "^4.36.0"
   },
   "devDependencies": {
@@ -34,6 +37,7 @@
     "portal-vue": "^2.1.7",
     "sass": "^1.26.11",
     "sass-loader": "^10.1.1",
-    "vue-cli-plugin-bootstrap-vue": "~0.7.0"
+    "vue-cli-plugin-bootstrap-vue": "~0.7.0",
+    "vue-cli-plugin-vuetify": "~2.0.9"
   }
 }

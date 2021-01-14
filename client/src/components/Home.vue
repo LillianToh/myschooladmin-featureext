@@ -1,4 +1,5 @@
 <template>
+<v-app>
     <div class="Home">
         <section class="hero is-dark">
         <div class="hero-body">
@@ -6,12 +7,26 @@
                 <h1 class="title" style="text-align: left; padding: 100px">Welcome<br/>Teacher Awesome!</h1>
             </div><br/><br/><br/>
 
-            <div>
-                <v-avatar size="96" class="primary">
-                    <img alt="Avatar">
-                </v-avatar>
-                <v-btn @click="openAvatarPicker" class="btn btn-danger">Change Avatar</v-btn>
-            </div>
+            <v-container>
+                <v-layout row wrap>
+                    <v-flex xs12 sm6 lg3 v-for="person in team" :key="person.name">
+                        <v-card flat class="text-xs-center ma-3">
+                            <v-card-action>
+                                <v-btn @click="openAvatarPicker" class="btn btn-danger">Change Avatar</v-btn>
+                            </v-card-action>       
+                            <v-responsive class="pt-4">
+                                <v-avatar>
+                                    <img :src="person.avatar">                       
+                                </v-avatar>
+                            </v-responsive>
+                            <v-card-text>
+                                <div> {{ person.name }} </div>
+                                <div> {{ person.expertise }} </div>
+                            </v-card-text>
+                        </v-card>
+                    </v-flex>
+                </v-layout>
+            </v-container>
             
             <div>
                 <h5>Grades submission for Mid-Semester 1 | 2020-2021 is open , deadline for submission is by <span style="color: red;">31st January 2021</span></h5><br/>
@@ -24,10 +39,23 @@
         </div><br/>
         </section>
     </div>
+</v-app>
 </template>
 <script>
 export default {
     name: "Home",
+    data() {
+        return {
+            team: [
+                { name: 'Maria', expertise: 'Vue', avatar: '/avatar-1.png'},
+                { name: 'Eduardo', expertise: 'Technology', avatar: '/avatar-2.png'},
+                { name: 'Melissa', expertise: 'Loop', avatar: '/avatar-3.png'},
+                { name: 'Anne', expertise: 'API', avatar: '/avatar-4.png'},
+                { name: 'Mike', expertise: 'Bootstrap', avatar: '/avatar-5.png'},
+                { name: 'Adam', expertise: 'React', avatar: '/avatar-6.png'}
+            ]
+        }
+    }
 };
 </script>
 <style lang="scss" scoped>

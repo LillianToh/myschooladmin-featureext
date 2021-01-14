@@ -151,6 +151,16 @@ let routes = (app) => {
   app.use(router);
 };
 
+//Get all teachers ordered by given name
+router.get("/myschooladmin/teachers", (req, res) => {
+  // Send back the full list of full time students
+  db("SELECT * FROM teachers ORDER BY given_name;")
+    .then(results => {
+      res.send(results.data);
+    })
+    .catch(err => res.status(500).send(err));
+});
+
 module.exports = router;
 
 // TRUNCATE TABLE grades; 
