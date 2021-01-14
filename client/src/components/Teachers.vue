@@ -1,9 +1,9 @@
 <template>
     <div class="Teachers">
         <ul class="list-group">
-          <li class="list-group-item list-group-item-action" v-for="(teacher, id) in teachers" :key="id">
+          <li class="list-group-item list-group-item-action" v-for="(teacher, id) in teacherSubjects" :key="id">
              <b-avatar v-bind:fullname="teacher.given_name" size="5rem" variant="secondary"></b-avatar>
-            {{ teacher.given_name }} {{ teacher.last_name }}
+            {{ teacher.given_name }} {{ teacher.last_name }} {{ teacher.subject }}
           </li>
         </ul>
         <!-- <v-container>
@@ -34,8 +34,8 @@ export default {
     name: "Teachers",
     data() {
         return {
-            teachers: [],
-            subjects: [],
+            // teachers: [],
+            teacherSubjects: [],
             team: [
                 { name: 'Maria', expertise: 'Vue', avatar: '/avatar-1.png'},
                 { name: 'Eduardo', expertise: 'Technology', avatar: '/avatar-2.png'},
@@ -48,25 +48,25 @@ export default {
     },
 
     created() {
-        this.getTeachers(),
-        this.getSubjects()
+        // this.getTeachers(),
+        this.getSubjectsbyTeacher()
     },
 
     methods: {
-        async getTeachers() {
-            try {
-                const response = await axios.get("http://localhost:5000/users/myschooladmin/teachers");
-                this.teachers = response.data;
-                console.log(this.teachers);
-            } catch(err) {
-                console.log(err);
-            }
-        },
-        async getSubjects() {
+        // async getTeachers() {
+        //     try {
+        //         const response = await axios.get("http://localhost:5000/users/myschooladmin/teachers");
+        //         this.teachers = response.data;
+        //         // console.log(this.teachers);
+        //     } catch(err) {
+        //         console.log(err);
+        //     }
+        // },
+        async getSubjectsbyTeacher() {
             try {
                 const response = await axios.get("http://localhost:5000/users/myschooladmin/teachers/subjects");
-                this.subjects = response.data;
-                console.log(this.subjects);
+                this.teacherSubjects = response.data;
+                console.log(this.teacherSubjects);
             } catch(err) {
                 console.log(err);
             }
