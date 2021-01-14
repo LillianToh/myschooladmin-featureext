@@ -153,8 +153,16 @@ let routes = (app) => {
 
 //Get all teachers ordered by given name
 router.get("/myschooladmin/teachers", (req, res) => {
-  // Send back the full list of full time students
   db("SELECT * FROM teachers ORDER BY given_name;")
+    .then(results => {
+      res.send(results.data);
+    })
+    .catch(err => res.status(500).send(err));
+});
+
+//Get all subjects ordered by teacher id
+router.get("/myschooladmin/subjects", (req, res) => {
+  db("SELECT * FROM subjects ORDER BY teacher_id;")
     .then(results => {
       res.send(results.data);
     })

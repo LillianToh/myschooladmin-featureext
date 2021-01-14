@@ -35,6 +35,7 @@ export default {
     data() {
         return {
             teachers: [],
+            subjects: [],
             team: [
                 { name: 'Maria', expertise: 'Vue', avatar: '/avatar-1.png'},
                 { name: 'Eduardo', expertise: 'Technology', avatar: '/avatar-2.png'},
@@ -47,7 +48,8 @@ export default {
     },
 
     created() {
-        this.getTeachers()
+        this.getTeachers(),
+        this.getSubjects()
     },
 
     methods: {
@@ -56,6 +58,15 @@ export default {
                 const response = await axios.get("http://localhost:5000/users/myschooladmin/teachers");
                 this.teachers = response.data;
                 console.log(this.teachers);
+            } catch(err) {
+                console.log(err);
+            }
+        },
+        async getSubjects() {
+            try {
+                const response = await axios.get("http://localhost:5000/users/myschooladmin/subjects");
+                this.subjects = response.data;
+                console.log(this.subjects);
             } catch(err) {
                 console.log(err);
             }
