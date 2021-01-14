@@ -7,6 +7,7 @@ router.use(bodyParser.json());
 const fs = require('fs');
 const multer = require('multer');
 const readXlsxFile = require('read-excel-file/node');
+const controller = require("../client/src/controller/file.controller");
 
 global.__basedir = __dirname;
 
@@ -142,15 +143,13 @@ router.get("/myschooladmin/averagesubjectgrades", (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
-//GET GRADES
-// router.get("/myschooladmin/grades", (req, res) => {
-//   // Send back the full list of full time students
-//   db("SELECT * FROM students WHERE class_grade != 'EC' ORDER BY student_given_name;")
-//     .then(results => {
-//       res.send(results.data);
-//     })
-//     .catch(err => res.status(500).send(err));
-// });
+//UPLOAD, GET AND DOWNLOAD
+let routes = (app) => {
+  router.post("/upload", controller.upload);
+  router.get("/files", controller.getListFiles);
+  router.get("/files/:name", controller.download);
+  app.use(router);
+};
 
 module.exports = router;
 

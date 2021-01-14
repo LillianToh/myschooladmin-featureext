@@ -5,6 +5,14 @@
             <div class="container">
                 <h1 class="title" style="text-align: left; padding: 100px">Welcome<br/>Teacher Awesome!</h1>
             </div><br/><br/><br/>
+
+            <div>
+                <v-avatar size="96" class="primary">
+                    <img alt="Avatar">
+                </v-avatar>
+                <v-btn @click="openAvatarPicker" class="btn btn-danger">Change Avatar</v-btn>
+            </div>
+            
             <div>
                 <h5>Grades submission for Mid-Semester 1 | 2020-2021 is open , deadline for submission is by <span style="color: red;">31st January 2021</span></h5><br/>
                 <h5><span style="background-color: #FFE87C; padding: 11px;">Make sure to read the notice below before proceeding to the Grades Page!</span></h5>
