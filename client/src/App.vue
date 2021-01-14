@@ -4,7 +4,6 @@
     <b-navbar type="dark" variant="dark">
       <router-link to="/" class="navbar-brand">
         mySchoolAdmin( 😉 )
-        <!-- <router-link :to="{ name: 'Melissa', params: { userId: 123 }}">User</router-link> -->
       </router-link>
       <b-navbar-nav id="isActive">  
         <b-nav-item>
@@ -12,6 +11,9 @@
         </b-nav-item>
         <b-nav-item>
           <router-link to="/grades" exact-active-class="active" class="nav-link">Grades</router-link>
+        </b-nav-item>
+        <b-nav-item>
+          <router-link to="/teachers" exact-active-class="active" class="nav-link">Teachers</router-link>
         </b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav id="isActive" class="ml-auto">

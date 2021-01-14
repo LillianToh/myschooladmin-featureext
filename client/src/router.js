@@ -16,6 +16,11 @@ export default new Router({
             path: "/grades",
             name: "grades",
             component: () => import("./components/Grades")
+        },
+        {
+            path: "/teachers",
+            name: "teachers",
+            component: () => import("./components/Teachers")
         }
     ]
 });
