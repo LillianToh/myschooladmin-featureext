@@ -1,8 +1,14 @@
 <template>
     <div class="Teachers">
-        <v-container>
+        <ul class="list-group">
+          <li class="list-group-item list-group-item-action" v-for="(teacher, id) in teachers" :key="id">
+             <b-avatar v-bind:fullname="teacher.given_name" size="5rem" variant="secondary"></b-avatar>
+            {{ teacher.given_name }} {{ teacher.last_name }}
+          </li>
+        </ul>
+        <!-- <v-container>
             <v-layout row wrap>
-                <v-flex xs12 sm6 lg3 v-for="person in team" :key="person.name">
+                <v-flex xs12 sm6 lg3 v-for="(teacher, id) in teachers" :key="id">
                     <v-card flat class="text-xs-center ma-3">
                         <v-card-action>
                             <v-btn @click="openAvatarPicker" class="btn btn-danger">Change Avatar</v-btn>
@@ -13,13 +19,13 @@
                             </v-avatar>
                         </v-responsive>
                         <v-card-text>
-                            <div> {{ person.name }} </div>
-                            <div> {{ person.expertise }} </div>
+                            <div> {{ teacher.given_name }} </div>
+                            <div> {{ teacher.last_name }} </div>
                         </v-card-text>
                     </v-card>
                 </v-flex>
             </v-layout>
-        </v-container>
+        </v-container> -->
     </div>
 </template>
 <script>
