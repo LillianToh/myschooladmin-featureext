@@ -64,7 +64,7 @@ export default {
         },
         async getSubjects() {
             try {
-                const response = await axios.get("http://localhost:5000/users/myschooladmin/subjects");
+                const response = await axios.get("http://localhost:5000/users/myschooladmin/teachers/subjects");
                 this.subjects = response.data;
                 console.log(this.subjects);
             } catch(err) {
