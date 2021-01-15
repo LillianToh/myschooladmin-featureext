@@ -11,6 +11,7 @@
         <div class="media-body container-fluid float-right">
             <b-table id="teacher-subjects" bordered small table-variant="info" :items="teacherSubjects"></b-table>
         </div>
+        
         <!-- <v-container>
             <v-layout row wrap>
                 <v-flex xs12 sm6 lg3 v-for="(teacher, id) in teachers" :key="id">
@@ -41,6 +42,7 @@ export default {
         return {
             teachers: [],
             teacherSubjects: [],
+            studentsTeachers: [],
             team: [
                 { name: 'Maria', expertise: 'Vue', avatar: '/avatar-1.png'},
                 { name: 'Eduardo', expertise: 'Technology', avatar: '/avatar-2.png'},
@@ -54,7 +56,8 @@ export default {
 
     created() {
         this.getTeachers(),
-        this.getSubjectsbyTeacher()
+        this.getSubjectsbyTeacher(),
+        this.getStudentsTeachers()
     },
 
     methods: {
@@ -71,7 +74,16 @@ export default {
             try {
                 const response = await axios.get("http://localhost:5000/users/myschooladmin/teachers/subjects");
                 this.teacherSubjects = response.data;
-                console.log(this.teacherSubjects);
+                // console.log(this.teacherSubjects);
+            } catch(err) {
+                console.log(err);
+            }
+        },
+        async getStudentsTeachers() {
+            try {
+                const response = await axios.get("http://localhost:5000/users/myschooladmin/students-teachers");
+                this.studentsTeachers = response.data;
+                console.log(this.studentsTeachers);
             } catch(err) {
                 console.log(err);
             }

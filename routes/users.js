@@ -187,9 +187,9 @@ router.get("/myschooladmin/teachers/subjects", (req, res) => {
 //     .catch(err => res.status(500).send(err));
 // });
 
-// join students & teachers using junction table
+// join students & teachers using junction table; sort by teacher's given name
 router.get("/myschooladmin/students-teachers", (req, res) => {
-  db("SELECT students.student_given_name, students.student_last_name, teachers.given_name, teachers.last_name FROM students JOIN students_teachers ON students.id = students_teachers.student_id JOIN teachers ON teachers.id = students_teachers.teacher_id;")
+  db("SELECT students.student_given_name, students.student_last_name, teachers.given_name, teachers.last_name FROM students JOIN students_teachers ON students.id = students_teachers.student_id JOIN teachers ON teachers.id = students_teachers.teacher_id ORDER BY given_name;")
     .then(results => {
       res.send(results.data);
     })
