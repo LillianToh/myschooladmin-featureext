@@ -7,7 +7,7 @@ router.use(bodyParser.json());
 const fs = require('fs');
 const multer = require('multer');
 const readXlsxFile = require('read-excel-file/node');
-const controller = require("../client/src/controller/file.controller");
+// const controller = require("../client/src/controller/file.controller");
 
 global.__basedir = __dirname;
 
@@ -144,12 +144,12 @@ router.get("/myschooladmin/averagesubjectgrades", (req, res) => {
 });
 
 //UPLOAD, GET AND DOWNLOAD
-let routes = (app) => {
-  router.post("/upload", controller.upload);
-  router.get("/files", controller.getListFiles);
-  router.get("/files/:name", controller.download);
-  app.use(router);
-};
+// let routes = (app) => {
+//   router.post("/upload", controller.upload);
+//   router.get("/files", controller.getListFiles);
+//   router.get("/files/:name", controller.download);
+//   app.use(router);
+// };
 
 //Get all teachers ordered by given name
 router.get("/myschooladmin/teachers", (req, res) => {
@@ -178,27 +178,26 @@ router.get("/myschooladmin/teachers/subjects", (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
-//Get all teachers, corresponding subjects and students; sort by teacher id
-//Grades is a junction table
-router.get("/myschooladmin/teachers/subjects/students", (req, res) => {
-  db("SELECT students.student_given_name, students.student_last_name, subjects.subject FROM students JOIN grades ON students.id = grades.student_id JOIN subjects ON subjects.id = grades.subject_id;")
-    .then(results => {
-      res.send(results.data);
-    })
-    .catch(err => res.status(500).send(err));
-});
+// TESTING: get junction table
+// router.get("/myschooladmin/students-teachers", (req, res) => {
+//   db("SELECT * FROM students_teachers ORDER BY teacher_id;")
+//     .then(results => {
+//       res.send(results.data);
+//     })
+//     .catch(err => res.status(500).send(err));
+// });
 
-//1. joining students & grades
-// SELECT students.student_given_name, students.student_last_name, grades.subject_id FROM students JOIN grades ON students.id = grades.student_id;
-
-//Junction table for students and teachers; sort by teacher id
+// join students & teachers using junction table
 router.get("/myschooladmin/students-teachers", (req, res) => {
-  db("SELECT * FROM students_teachers ORDER BY teacher_id;")
+  db("SELECT students.student_given_name, students.student_last_name, teachers.given_name, teachers.last_name FROM students JOIN students_teachers ON students.id = students_teachers.student_id JOIN teachers ON teachers.id = students_teachers.teacher_id;")
     .then(results => {
       res.send(results.data);
     })
     .catch(err => res.status(500).send(err));
 });
+
+
+
 
 module.exports = router;
 
