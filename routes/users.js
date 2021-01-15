@@ -160,7 +160,7 @@ router.get("/myschooladmin/teachers", (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
-//Get all subjects ordered by teacher id
+//Get all subjects; ordered by teacher id
 router.get("/myschooladmin/subjects", (req, res) => {
   db("SELECT * FROM subjects ORDER BY teacher_id;")
     .then(results => {
@@ -169,9 +169,31 @@ router.get("/myschooladmin/subjects", (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
-//Get all teachers and corresponding subjects, sort by teacher id
+//Get all teachers and corresponding subjects; sort by teacher id
 router.get("/myschooladmin/teachers/subjects", (req, res) => {
   db("SELECT subject, teacher_id, given_name, last_name FROM subjects INNER JOIN teachers ON subjects.teacher_id = teachers.id ORDER BY teacher_id;")
+    .then(results => {
+      res.send(results.data);
+    })
+    .catch(err => res.status(500).send(err));
+});
+
+//Get all teachers, corresponding subjects and students; sort by teacher id
+//Grades is a junction table
+router.get("/myschooladmin/teachers/subjects/students", (req, res) => {
+  db("SELECT students.student_given_name, students.student_last_name, subjects.subject FROM students JOIN grades ON students.id = grades.student_id JOIN subjects ON subjects.id = grades.subject_id;")
+    .then(results => {
+      res.send(results.data);
+    })
+    .catch(err => res.status(500).send(err));
+});
+
+//1. joining students & grades
+// SELECT students.student_given_name, students.student_last_name, grades.subject_id FROM students JOIN grades ON students.id = grades.student_id;
+
+//Junction table for students and teachers; sort by teacher id
+router.get("/myschooladmin/students-teachers", (req, res) => {
+  db("SELECT * FROM students_teachers ORDER BY teacher_id;")
     .then(results => {
       res.send(results.data);
     })
