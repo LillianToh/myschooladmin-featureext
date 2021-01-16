@@ -59,7 +59,6 @@ export default {
 
     created() {
         this.getTeachers(),
-        // this.getSubjectsbyTeacher(),
         this.getSubjectsbyTeacherId(),
         this.getStudentsbyTeacherId()
     },
@@ -77,7 +76,7 @@ export default {
         async getSubjectsbyTeacherId(teacher_id) {
             // console.log("Teacher id on click", teacher_id);
             try {
-                const response = await axios.get(`http://localhost:5000/users/myschooladmin/teachers/subjects/` + teacher_id);
+                const response = await axios.get(`http://localhost:5000/users/myschooladmin/subjects/` + teacher_id);
                 this.subjectsbyTeacherId = response.data;
                 // console.log("list of subjects", this.subjectsbyTeacherId);
             } catch(err) {

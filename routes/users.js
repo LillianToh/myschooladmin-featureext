@@ -151,7 +151,7 @@ router.get("/myschooladmin/averagesubjectgrades", (req, res) => {
 //   app.use(router);
 // };
 
-//Get all teachers ordered by id
+// getTeachers()
 router.get("/myschooladmin/teachers", (req, res) => {
   db("SELECT * FROM teachers ORDER BY id;")
     .then(results => {
@@ -160,17 +160,8 @@ router.get("/myschooladmin/teachers", (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
-//Get all subjects; ordered by teacher id
-router.get("/myschooladmin/subjects", (req, res) => {
-  db(`SELECT * FROM subjects ORDER BY teacher_id;`)
-    .then(results => {
-      res.send(results.data);
-    })
-    .catch(err => res.status(500).send(err));
-});
-
 // getSubjectsbyTeacherId()
-router.get("/myschooladmin/teachers/subjects/:teacher_id", (req, res) => {
+router.get("/myschooladmin/subjects/:teacher_id", (req, res) => {
   db(`SELECT subject, given_name, last_name FROM teachers INNER JOIN subjects ON subjects.teacher_id = teachers.id WHERE teacher_id='${req.params.teacher_id}' ORDER BY given_name;`)
     .then(results => {
       res.send(results.data);
