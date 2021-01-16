@@ -151,9 +151,9 @@ router.get("/myschooladmin/averagesubjectgrades", (req, res) => {
 //   app.use(router);
 // };
 
-//Get all teachers ordered by given name
+//Get all teachers ordered by id
 router.get("/myschooladmin/teachers", (req, res) => {
-  db("SELECT * FROM teachers ORDER BY given_name;")
+  db("SELECT * FROM teachers ORDER BY id;")
     .then(results => {
       res.send(results.data);
     })
@@ -162,7 +162,7 @@ router.get("/myschooladmin/teachers", (req, res) => {
 
 //Get all subjects; ordered by teacher id
 router.get("/myschooladmin/subjects", (req, res) => {
-  db("SELECT * FROM subjects ORDER BY teacher_id;")
+  db(`SELECT * FROM subjects ORDER BY teacher_id;`)
     .then(results => {
       res.send(results.data);
     })
@@ -178,6 +178,15 @@ router.get("/myschooladmin/teachers/subjects", (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
+//IM DOING THIS!!!
+router.get("/myschooladmin/teachers/subjects/:teacher_id", (req, res) => {
+  db(`SELECT subject, given_name, last_name FROM teachers INNER JOIN subjects ON subjects.teacher_id = teachers.id WHERE teacher_id='${req.params.teacher_id}' ORDER BY given_name;`)
+    .then(results => {
+      res.send(results.data);
+    })
+    .catch(err => res.status(500).send(err));
+});
+
 // TESTING: get junction table
 // router.get("/myschooladmin/students-teachers", (req, res) => {
 //   db("SELECT * FROM students_teachers ORDER BY teacher_id;")
@@ -187,9 +196,9 @@ router.get("/myschooladmin/teachers/subjects", (req, res) => {
 //     .catch(err => res.status(500).send(err));
 // });
 
-// join students & teachers using junction table; sort by teacher's given name
-router.get("/myschooladmin/students-teachers", (req, res) => {
-  db("SELECT students.student_given_name, students.student_last_name, teachers.given_name, teachers.last_name FROM students JOIN students_teachers ON students.id = students_teachers.student_id JOIN teachers ON teachers.id = students_teachers.teacher_id ORDER BY given_name;")
+// CONTINUE HERE! join students & teachers using junction table; sort by teacher's given name
+router.get("/myschooladmin/students-teachers/:teacher_id", (req, res) => {
+  db("SELECT students.student_given_name, students.student_last_name, teachers.given_name, teachers.last_name FROM students JOIN students_teachers ON students.id = students_teachers.student_id JOIN teachers ON teachers.id = students_teachers.teacher_id ORDER BY teacher_id;")
     .then(results => {
       res.send(results.data);
     })

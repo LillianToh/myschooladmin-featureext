@@ -1,16 +1,35 @@
 <template>
     <div class="Teachers">
-        <div>
+        <!-- <div>
             <ul class="list-group">
-                <li class="list-group-item list-group-item-action" v-for="(teacher, id) in teachers" :key="id" @click="getSubjectsbyTeacher(teacher.id)">
+                <li class="list-group-item list-group-item-action" v-for="(teacher, id) in teachers" :key="id">
                     <b-avatar size="5rem" variant="secondary"></b-avatar>
-                    {{ teacher.given_name }} {{ teacher.last_name }}
+                     {{ teacher.id }} : {{ teacher.given_name }} {{ teacher.last_name }}
                 </li>
             </ul>
+        </div><br/><br/> -->
+
+        <div>
+            <div>
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-action" v-for="(teacher, id) in teachers" :key="id" @click="getSubjectsbyTeacherId(id); getStudentsTeachers(id)">
+                        <b-avatar size="5rem" variant="secondary"></b-avatar>
+                        {{ teacher.id }} : {{ teacher.given_name }} {{ teacher.last_name }}
+                    </li>
+                </ul>
+            </div>
+            <div class="media-body container-fluid float-right">
+                <b-table id="teacher-subjects" bordered small table-variant="info" :items="subjectsbyTeacherId"></b-table>
+                <b-table id="teacher-students" bordered small table-variant="info" :items="studentsTeachers"></b-table>
+            </div>
         </div><br/><br/>
-        <div class="media-body container-fluid float-right">
+
+        <!-- <div class="media-body container-fluid float-right">
             <b-table id="teacher-subjects" bordered small table-variant="info" :items="teacherSubjects"></b-table>
         </div>
+        <div class="media-body container-fluid float-right">
+            <b-table id="teacher-subjects" bordered small table-variant="info" :items="studentsTeachers"></b-table>
+        </div> -->
         
         <!-- <v-container>
             <v-layout row wrap>
@@ -42,6 +61,7 @@ export default {
         return {
             teachers: [],
             teacherSubjects: [],
+            subjectsbyTeacherId: [],
             studentsTeachers: [],
             team: [
                 { name: 'Maria', expertise: 'Vue', avatar: '/avatar-1.png'},
@@ -57,6 +77,7 @@ export default {
     created() {
         this.getTeachers(),
         this.getSubjectsbyTeacher(),
+        this.getSubjectsbyTeacherId(),
         this.getStudentsTeachers()
     },
 
@@ -65,7 +86,7 @@ export default {
             try {
                 const response = await axios.get("http://localhost:5000/users/myschooladmin/teachers");
                 this.teachers = response.data;
-                // console.log(this.teachers);
+                console.log("teachers", this.teachers);
             } catch(err) {
                 console.log(err);
             }
@@ -74,16 +95,27 @@ export default {
             try {
                 const response = await axios.get("http://localhost:5000/users/myschooladmin/teachers/subjects");
                 this.teacherSubjects = response.data;
-                // console.log(this.teacherSubjects);
+                console.log("teacherSubjects", this.teacherSubjects);
             } catch(err) {
                 console.log(err);
             }
         },
-        async getStudentsTeachers() {
+        // IM DOING THIS!!!!!!
+        async getSubjectsbyTeacherId(teacher_id) {
+            // console.log("Teacher id on click", teacher_id);
             try {
-                const response = await axios.get("http://localhost:5000/users/myschooladmin/students-teachers");
+                const response = await axios.get(`http://localhost:5000/users/myschooladmin/teachers/subjects/` + teacher_id);
+                this.subjectsbyTeacherId = response.data;
+                // console.log("list of subjects", this.subjectsbyTeacherId);
+            } catch(err) {
+                console.log(err);
+            }
+        },
+        async getStudentsTeachers(teacher_id) {
+            console.log("Teacher id on click", teacher_id);
+            try {
+                const response = await axios.get(`http://localhost:5000/users/myschooladmin/students-teachers/` + teacher_id);
                 this.studentsTeachers = response.data;
-                console.log(this.studentsTeachers);
             } catch(err) {
                 console.log(err);
             }
