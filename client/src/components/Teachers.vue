@@ -1,14 +1,5 @@
 <template>
-    <div class="Teachers">
-        <!-- <div>
-            <ul class="list-group">
-                <li class="list-group-item list-group-item-action" v-for="(teacher, id) in teachers" :key="id">
-                    <b-avatar size="5rem" variant="secondary"></b-avatar>
-                     {{ teacher.id }} : {{ teacher.given_name }} {{ teacher.last_name }}
-                </li>
-            </ul>
-        </div><br/><br/> -->
-
+    <div class="Teachers">   
         <div>
             <div>
                 <ul class="list-group">
@@ -20,16 +11,9 @@
             </div>
             <div class="media-body container-fluid float-right">
                 <b-table id="teacher-subjects" bordered small table-variant="info" :items="subjectsbyTeacherId"></b-table>
-                <b-table id="teacher-students" bordered small table-variant="info" :items="studentsTeachers"></b-table>
+                <b-table id="teacher-students" bordered small table-variant="info" :items="studentsbyTeacherId"></b-table>
             </div>
         </div><br/><br/>
-
-        <!-- <div class="media-body container-fluid float-right">
-            <b-table id="teacher-subjects" bordered small table-variant="info" :items="teacherSubjects"></b-table>
-        </div>
-        <div class="media-body container-fluid float-right">
-            <b-table id="teacher-subjects" bordered small table-variant="info" :items="studentsTeachers"></b-table>
-        </div> -->
         
         <!-- <v-container>
             <v-layout row wrap>
@@ -60,9 +44,8 @@ export default {
     data() {
         return {
             teachers: [],
-            teacherSubjects: [],
             subjectsbyTeacherId: [],
-            studentsTeachers: [],
+            studentsbyTeacherId: [],
             team: [
                 { name: 'Maria', expertise: 'Vue', avatar: '/avatar-1.png'},
                 { name: 'Eduardo', expertise: 'Technology', avatar: '/avatar-2.png'},
@@ -76,7 +59,7 @@ export default {
 
     created() {
         this.getTeachers(),
-        this.getSubjectsbyTeacher(),
+        // this.getSubjectsbyTeacher(),
         this.getSubjectsbyTeacherId(),
         this.getStudentsbyTeacherId()
     },
@@ -86,16 +69,7 @@ export default {
             try {
                 const response = await axios.get("http://localhost:5000/users/myschooladmin/teachers");
                 this.teachers = response.data;
-                console.log("teachers", this.teachers);
-            } catch(err) {
-                console.log(err);
-            }
-        },
-        async getSubjectsbyTeacher() {
-            try {
-                const response = await axios.get("http://localhost:5000/users/myschooladmin/teachers/subjects");
-                this.teacherSubjects = response.data;
-                console.log("teacherSubjects", this.teacherSubjects);
+                // console.log("teachers", this.teachers);
             } catch(err) {
                 console.log(err);
             }
@@ -111,10 +85,10 @@ export default {
             }
         },
         async getStudentsbyTeacherId(teacher_id) {
-            console.log("Teacher id on click", teacher_id);
+            // console.log("Teacher id on click", teacher_id);
             try {
                 const response = await axios.get(`http://localhost:5000/users/myschooladmin/students-teachers/` + teacher_id);
-                this.studentsTeachers = response.data;
+                this.studentsbyTeacherId = response.data;
             } catch(err) {
                 console.log(err);
             }

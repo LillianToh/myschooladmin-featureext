@@ -169,15 +169,6 @@ router.get("/myschooladmin/subjects", (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
-//Get all teachers and corresponding subjects; sort by teacher id
-router.get("/myschooladmin/teachers/subjects", (req, res) => {
-  db("SELECT subject, teacher_id, given_name, last_name FROM subjects INNER JOIN teachers ON subjects.teacher_id = teachers.id ORDER BY teacher_id;")
-    .then(results => {
-      res.send(results.data);
-    })
-    .catch(err => res.status(500).send(err));
-});
-
 // getSubjectsbyTeacherId()
 router.get("/myschooladmin/teachers/subjects/:teacher_id", (req, res) => {
   db(`SELECT subject, given_name, last_name FROM teachers INNER JOIN subjects ON subjects.teacher_id = teachers.id WHERE teacher_id='${req.params.teacher_id}' ORDER BY given_name;`)
