@@ -12,7 +12,7 @@
         <div>
             <div>
                 <ul class="list-group">
-                    <li class="list-group-item list-group-item-action" v-for="(teacher, id) in teachers" :key="id" @click="getSubjectsbyTeacherId(id); getStudentsTeachers(id)">
+                    <li class="list-group-item list-group-item-action" v-for="(teacher, id) in teachers" :key="id" @click="getSubjectsbyTeacherId(id); getStudentsbyTeacherId(id)">
                         <b-avatar size="5rem" variant="secondary"></b-avatar>
                         {{ teacher.id }} : {{ teacher.given_name }} {{ teacher.last_name }}
                     </li>
@@ -78,7 +78,7 @@ export default {
         this.getTeachers(),
         this.getSubjectsbyTeacher(),
         this.getSubjectsbyTeacherId(),
-        this.getStudentsTeachers()
+        this.getStudentsbyTeacherId()
     },
 
     methods: {
@@ -100,7 +100,6 @@ export default {
                 console.log(err);
             }
         },
-        // IM DOING THIS!!!!!!
         async getSubjectsbyTeacherId(teacher_id) {
             // console.log("Teacher id on click", teacher_id);
             try {
@@ -111,7 +110,7 @@ export default {
                 console.log(err);
             }
         },
-        async getStudentsTeachers(teacher_id) {
+        async getStudentsbyTeacherId(teacher_id) {
             console.log("Teacher id on click", teacher_id);
             try {
                 const response = await axios.get(`http://localhost:5000/users/myschooladmin/students-teachers/` + teacher_id);
