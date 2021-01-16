@@ -4,7 +4,7 @@
             <div>
                 <ul class="list-group">
                     <li class="list-group-item list-group-item-action" v-for="(teacher, id) in teachers" :key="id" @click="getSubjectsbyTeacherId(id); getStudentsbyTeacherId(id)">
-                        <b-avatar size="5rem" variant="secondary"></b-avatar>
+                        <b-avatar size="5rem" variant="secondary" :text="teacher.given_name.charAt(0)+teacher.last_name.charAt(0)"></b-avatar>
                         {{ teacher.id }} : {{ teacher.given_name }} {{ teacher.last_name }}
                     </li>
                 </ul>
