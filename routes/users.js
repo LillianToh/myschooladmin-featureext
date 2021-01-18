@@ -153,7 +153,7 @@ router.get("/myschooladmin/averagesubjectgrades", (req, res) => {
 
 // getTeachers()
 router.get("/myschooladmin/teachers", (req, res) => {
-  db("SELECT * FROM teachers ORDER BY id;")
+  db("SELECT * FROM teachers ORDER BY given_name;")
     .then(results => {
       res.send(results.data);
     })
