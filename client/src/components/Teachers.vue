@@ -10,20 +10,16 @@
                  </ul>
                     <b-collapse id="collapse-1" class="mt-2">
                         <b-card>
-
-                           
-                            <p class="card-text" v-for="(subject, index) in subjectsbyTeacherId" :key="index">{{ subject.subject }} </p>
-                            
+                            <p class="card-text" v-for="(subject, index) in subjectsbyTeacherId" :key="index"> {{ subject.subject }} </p>
                             <b-button variant="outline-info" v-b-toggle.collapse-1-inner size="sm">Show Students</b-button>
-
-                             <div class="float-right"> {{ studentsbyTeacherId.length }} students enrolled </div>
-
+                            <div class="float-right"> 
+                                {{ studentsbyTeacherId.length }} students enrolled 
+                            </div>
                             <b-collapse v-for="(student, index) in studentsbyTeacherId" :key="index" id="collapse-1-inner" class="mt-2">
                                 <b-card>
                                     {{ student.student_given_name }} {{ student.student_last_name }}
                                 </b-card>
                             </b-collapse>
-
                         </b-card>
                     </b-collapse>
             </div><br/><br/>

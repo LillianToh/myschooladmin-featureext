@@ -180,7 +180,7 @@ router.get("/myschooladmin/subjects/:teacher_id", (req, res) => {
 
 // getStudentsbyTeacherId()
 router.get("/myschooladmin/students-teachers/:teacher_id", (req, res) => {
-  db(`SELECT students.student_given_name, students.student_last_name FROM students INNER JOIN students_teachers ON students.id = students_teachers.student_id INNER JOIN teachers ON teachers.id = students_teachers.teacher_id WHERE teacher_id='${req.params.teacher_id}' ORDER BY teacher_id;`)
+  db(`SELECT students.student_given_name, students.student_last_name FROM students INNER JOIN students_teachers ON students.id = students_teachers.student_id INNER JOIN teachers ON teachers.id = students_teachers.teacher_id WHERE teacher_id='${req.params.teacher_id}' ORDER BY students.student_given_name;`)
     .then(results => {
       res.send(results.data);
     })
