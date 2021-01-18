@@ -17,13 +17,14 @@
                             </div>
                             <b-collapse v-for="(student, index) in studentsbyTeacherId" :key="index" id="collapse-1-inner" class="mt-2">
                                 <b-card>
-                                    {{ student.student_given_name }} {{ student.student_last_name }}
-                                    <b-form-checkbox class="float-right" v-model="selected" name="check-button" :indeterminate="indeterminate" switch>
-                                         <b>Attended {{ indeterminate }}</b> 
+                                    {{ student.student_given_name }} {{ student.student_last_name }}               
+                                    <b-form-checkbox class="float-right" v-model="checked" name="check-button" @change="attendance()" switch>
+                                        Attended 
+                                        <b>({{ attended }})</b>
                                     </b-form-checkbox>
                                 </b-card>
                             </b-collapse>
-                            <!-- <p>Total {{ checked.length }} </p> -->
+                            <!-- <p>Total Attendance {{ attended.length }} </p> -->
                         </b-card>
                     </b-collapse>
             </div><br/><br/>
@@ -43,7 +44,7 @@ export default {
             teachers: [],
             subjectsbyTeacherId: [],
             studentsbyTeacherId: [],
-            indeterminate: false
+            attended: false
             // PASS PROPS grades: [] from Grades.Vue - render subject
         }
     },
@@ -51,7 +52,8 @@ export default {
     created() {
         this.getTeachers(),
         this.getSubjectsbyTeacherId(),
-        this.getStudentsbyTeacherId()
+        this.getStudentsbyTeacherId(),
+        this.attendance()
     },
 
     methods: {
@@ -82,7 +84,10 @@ export default {
             } catch(err) {
                 console.log(err);
             }
-        }
+        },
+        attendance(checked) {
+        this.attended === checked ? true : false;
+      }
     }
 };
 </script>
