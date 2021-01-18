@@ -4,24 +4,31 @@
             <div>
                 <ul class="list-group">
                     <li v-b-toggle.collapse-1 variant="primary" class="list-group-item list-group-item-action" v-for="(teacher) in teachers" :key="teacher.id" @click="getSubjectsbyTeacherId(teacher.id); getStudentsbyTeacherId(teacher.id)">
-                        <b-avatar size="5rem" variant="secondary" :text="teacher.given_name.charAt(0)+teacher.last_name.charAt(0)"></b-avatar>
+                        <b-avatar size="6rem" variant="secondary" :text="teacher.given_name.charAt(0)+teacher.last_name.charAt(0)"></b-avatar>
                         {{ teacher.given_name }} {{ teacher.last_name }}
                     </li>
                  </ul>
                     <b-collapse id="collapse-1" class="mt-2">
                         <b-card>
-                            <p class="card-text">{{ subjectsbyTeacherId }} </p>
+                            <p class="card-text" v-for="(subject, index) in subjectsbyTeacherId" :key="index">{{ subject.subject }}</p>
+
+                            <div> {{ studentsbyTeacherId.length }} students enrolled </div>
+
                             <b-button v-b-toggle.collapse-1-inner size="sm">Show Students</b-button>
-                            <b-collapse id="collapse-1-inner" class="mt-2">
-                                <b-card>{{ studentsbyTeacherId }}</b-card>
+
+                            <b-collapse v-for="(student, index) in studentsbyTeacherId" :key="index" id="collapse-1-inner" class="mt-2">
+
+                                <b-card>
+                                    {{ student.student_given_name }} {{ student.student_last_name }}
+                                </b-card>
                             </b-collapse>
                         </b-card>
                     </b-collapse>
             </div><br/><br/>
-            <div class="media-body container-fluid float-right">
+            <!-- <div class="media-body container-fluid float-right">
                 <b-table id="teacher-subjects" bordered small table-variant="info" :items="subjectsbyTeacherId"></b-table>
                 <b-table id="teacher-students" bordered small table-variant="info" :items="studentsbyTeacherId"></b-table>
-            </div>
+            </div> -->
             <!-- <div>
                 <b-table id="teacher-students" bordered small table-variant="info" :items="studentsbyTeacherId"></b-table>
                  <div class="jumbotron" style="border-radius:0px;">
@@ -61,15 +68,15 @@ export default {
         return {
             teachers: [],
             subjectsbyTeacherId: [],
-            studentsbyTeacherId: [],
-            team: [
-                { name: 'Maria', expertise: 'Vue', avatar: '/avatar-1.png'},
-                { name: 'Eduardo', expertise: 'Technology', avatar: '/avatar-2.png'},
-                { name: 'Melissa', expertise: 'Loop', avatar: '/avatar-3.png'},
-                { name: 'Anne', expertise: 'API', avatar: '/avatar-4.png'},
-                { name: 'Mike', expertise: 'Bootstrap', avatar: '/avatar-5.png'},
-                { name: 'Adam', expertise: 'React', avatar: '/avatar-6.png'}
-            ]
+            studentsbyTeacherId: []
+            // team: [
+            //     { name: 'Maria', expertise: 'Vue', avatar: '/avatar-1.png'},
+            //     { name: 'Eduardo', expertise: 'Technology', avatar: '/avatar-2.png'},
+            //     { name: 'Melissa', expertise: 'Loop', avatar: '/avatar-3.png'},
+            //     { name: 'Anne', expertise: 'API', avatar: '/avatar-4.png'},
+            //     { name: 'Mike', expertise: 'Bootstrap', avatar: '/avatar-5.png'},
+            //     { name: 'Adam', expertise: 'React', avatar: '/avatar-6.png'}
+            // ]
         }
     },
 
@@ -78,9 +85,6 @@ export default {
         this.getSubjectsbyTeacherId(),
         this.getStudentsbyTeacherId()
     },
-
-    // render() {
-    // },
 
     methods: {
         async getTeachers() {
@@ -114,5 +118,6 @@ export default {
     }
 };
 </script>
+
 <style>
 </style>
