@@ -18,8 +18,12 @@
                             <b-collapse v-for="(student, index) in studentsbyTeacherId" :key="index" id="collapse-1-inner" class="mt-2">
                                 <b-card>
                                     {{ student.student_given_name }} {{ student.student_last_name }}
+                                    <b-form-checkbox class="float-right" v-model="selected" name="check-button" :indeterminate="indeterminate" switch>
+                                         <b>Attended {{ indeterminate }}</b> 
+                                    </b-form-checkbox>
                                 </b-card>
                             </b-collapse>
+                            <!-- <p>Total {{ checked.length }} </p> -->
                         </b-card>
                     </b-collapse>
             </div><br/><br/>
@@ -38,7 +42,8 @@ export default {
         return {
             teachers: [],
             subjectsbyTeacherId: [],
-            studentsbyTeacherId: []
+            studentsbyTeacherId: [],
+            indeterminate: false
             // PASS PROPS grades: [] from Grades.Vue - render subject
         }
     },
