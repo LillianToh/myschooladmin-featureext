@@ -18,13 +18,13 @@
                             <b-collapse v-for="(student, index) in studentsbyTeacherId" :key="index" id="collapse-1-inner" class="mt-2">
                                 <b-card>
                                     {{ student.student_given_name }} {{ student.student_last_name }}               
-                                    <b-form-checkbox class="float-right" v-model="checked" name="check-button" @change="attendance()" switch>
+                                    <b-form-checkbox class="float-right" v-model="checked" name="check-button" @change="attendance" switch>
                                         Attended 
-                                        <b>({{ attended }})</b>
-                                    </b-form-checkbox>
+                                        <!-- <b>({{ attended }})</b> -->
+                                    </b-form-checkbox> 
                                 </b-card>
                             </b-collapse>
-                            <!-- <p>Total Attendance {{ attended.length }} </p> -->
+                            <!-- <p>Total Attendance</p> -->
                         </b-card>
                     </b-collapse>
             </div><br/><br/>
@@ -39,12 +39,12 @@
 import axios from "axios";
 export default {
     name: "Teachers",
-    data() {
+    data() { 
         return {
             teachers: [],
             subjectsbyTeacherId: [],
             studentsbyTeacherId: [],
-            attended: false
+            attended: false,
             // PASS PROPS grades: [] from Grades.Vue - render subject
         }
     },
